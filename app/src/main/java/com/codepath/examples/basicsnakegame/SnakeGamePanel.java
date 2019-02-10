@@ -6,13 +6,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.widget.Button;
 
 import com.codepath.simplegame.AbstractGamePanel;
 
 public class SnakeGamePanel extends AbstractGamePanel {
 
+	Context context;
+
 	public SnakeGamePanel(Context context) {
 		super(context);
+		this.context = context;
 	}
 
 	private SnakeActor snake;
@@ -44,16 +48,22 @@ public class SnakeGamePanel extends AbstractGamePanel {
 
 	@Override
 	public void redrawCanvas(Canvas canvas) {
+		Button btnRestart = (Button) this.getRootView().findViewById(1);
+		Button btnShare = (Button) this.getRootView().findViewById(2);
 		if (this.snake.isEnabled()) {
 			this.snake.draw(canvas);
 			this.apple.draw(canvas);
 			this.score.draw(canvas);
+			if (btnRestart != null && btnShare != null)
+				((SnakeGameActivity) context).makeButtonsInvisible();
 		} else {
 			Paint p = getPaint();
 			p.setTextSize(100);
 			p.setColor(Color.RED);
-			canvas.drawText("Game over!", getWidth()/4, getHeight()/2, p);
-			canvas.drawText("Score: " + score.getScore(), getWidth()/4, getHeight()/2 + 100, p);
+			canvas.drawText("Game over!", getWidth()/4, getHeight()/3, p);
+			canvas.drawText("Score: " + score.getScore(), getWidth()/4, getHeight()/3 + 100, p);
+			if (btnRestart != null && btnShare != null)
+				((SnakeGameActivity) context).makeButtonsVisible();
 		}
 	}
 
