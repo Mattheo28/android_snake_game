@@ -50,9 +50,10 @@ public class SnakeGamePanel extends AbstractGamePanel {
 			this.score.draw(canvas);
 		} else {
 			Paint p = getPaint();
-			p.setTextSize(50);
-			p.setColor(Color.BLACK);
-			canvas.drawText("Game over!", 100, 100, p);
+			p.setTextSize(100);
+			p.setColor(Color.RED);
+			canvas.drawText("Game over!", getWidth()/4, getHeight()/2, p);
+			score.draw(canvas);
 		}
 	}
 

@@ -28,4 +28,6 @@ public class ScoreBoard extends PositionedActor {
 		canvas.drawText("Score: " + score, getX(), getY(), getPaint());
 	}
 
+
+
 }
