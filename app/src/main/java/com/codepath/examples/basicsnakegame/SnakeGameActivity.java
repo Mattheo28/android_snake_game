@@ -1,11 +1,23 @@
 package com.codepath.examples.basicsnakegame;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.security.Timestamp;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SnakeGameActivity extends com.codepath.simplegame.GameActivity {
 
@@ -68,6 +80,19 @@ public class SnakeGameActivity extends com.codepath.simplegame.GameActivity {
 				((SnakeGamePanel) gameView).onStart();
 			}
 		});
+
+		btnShare.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+//				shareit();
+				Intent shareIntent = new Intent(Intent.ACTION_SEND);
+				shareIntent.setType("text/plain");
+				shareIntent.putExtra(Intent.EXTRA_TEXT,"I just got a score of " +
+						((SnakeGamePanel) gameView).getScore() + " in snake!");
+				shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My snake score");
+				startActivity(Intent.createChooser(shareIntent, "Share..."));
+			}
+		});
 	}
 
 	void makeButtonsVisible() {
@@ -93,4 +118,56 @@ public class SnakeGameActivity extends com.codepath.simplegame.GameActivity {
 			});
 		}
 	}
+
+//	public void shareit() {
+//		View view = getWindow().getDecorView();
+//		view.getRootView();
+//		String state = Environment.getExternalStorageState();
+//		if (Environment.MEDIA_MOUNTED.equals(state)) {
+//			File picDir  = new File(Environment.getExternalStorageDirectory()+ "/snakeScores");
+//			boolean res = true;
+//			if (!picDir.exists()) {
+//				res = picDir.mkdir();
+//			}
+//			System.out.println(res);
+//			view.setDrawingCacheEnabled(true);
+//			view.buildDrawingCache(true);
+//			Bitmap bitmap = view.getDrawingCache();
+//			Date date = new Date();
+//			String formattedDate = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+//			String fileName = "Score" + formattedDate + ".jpg";
+//			File picFile = new File(picDir + "/" + fileName);
+//			try {
+//				picFile.createNewFile();
+//				FileOutputStream picOut = new FileOutputStream(picFile);
+//				bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), (int)(bitmap.getHeight()/1.2));
+//				boolean saved = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, picOut);
+//				if (saved) {
+//					Toast.makeText(getApplicationContext(),
+//							"Image saved to your device Pictures "+ "directory!",
+//							Toast.LENGTH_SHORT).show();
+//				} else {
+//					Toast.makeText(getApplicationContext(),
+//							"Image could not be saved to your device Pictures "+ "directory",
+//							Toast.LENGTH_SHORT).show();
+//				}
+//				picOut.close();
+//			}
+//			catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			view.destroyDrawingCache();
+//
+//			// share via intent
+//			Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//			sharingIntent.setType("image/jpeg");
+//			sharingIntent.putExtra(Intent.EXTRA_TEXT,"I just got a score of " +
+//					((SnakeGamePanel) gameView).getScore() + " in snake!");
+//			sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "My snake score");
+//			sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(picFile.getAbsolutePath()));
+//			startActivity(Intent.createChooser(sharingIntent, "Share via"));
+//		} else {
+//			Toast.makeText(getApplicationContext(),"Failed to share score", Toast.LENGTH_SHORT).show();
+//		}
+//	}
 }

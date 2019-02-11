@@ -28,11 +28,13 @@ public class TimerGameThread extends BaseGameThread {
 			// in the surface
 			try {
 				canvas = this.surfaceHolder.lockCanvas();
-				synchronized (surfaceHolder) {
-					// update game state
-					this.gamePanel.onTimer();
-					// render state to the screen
-					this.gamePanel.render(canvas);
+				if (canvas != null) {
+					synchronized (surfaceHolder) {
+						// update game state
+						this.gamePanel.onTimer();
+						// render state to the screen
+						this.gamePanel.render(canvas);
+					}
 				}
 			} finally {
 				// in case of an exception the surface is not left in

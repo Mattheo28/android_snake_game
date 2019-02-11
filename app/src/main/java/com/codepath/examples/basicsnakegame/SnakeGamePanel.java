@@ -88,4 +88,8 @@ public class SnakeGamePanel extends AbstractGamePanel {
 		return false;
 	}
 
+	int getScore() {
+		return score.getScore();
+	}
+
 }
