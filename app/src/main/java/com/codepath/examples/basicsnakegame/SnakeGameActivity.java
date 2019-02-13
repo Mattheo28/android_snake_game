@@ -32,9 +32,9 @@ public class SnakeGameActivity extends com.codepath.simplegame.GameActivity {
 		FrameLayout gameFrame = new FrameLayout(this);
 		RelativeLayout GameButtons = new RelativeLayout(this);
 		btnRestart = new Button(this);
-		btnRestart.setText("Restart");
+		btnRestart.setText(R.string.restart);
 		btnShare = new Button(this);
-		btnShare.setText("Share");
+		btnShare.setText(R.string.share);
 		btnRestart.setTag("btnRestart");
 		btnRestart.setBackgroundColor(Color.WHITE);
 		btnRestart.setWidth(300);
